@@ -14,8 +14,8 @@ import ModalProvider from "@/providers/modal-provider";
 const font = DM_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Fuzzie",
-  description: "Automate Your Work With Fuzzie",
+  title: "SailThread",
+  description: "Use Agentic AI on SailThread",
 };
 
 export default function RootLayout({

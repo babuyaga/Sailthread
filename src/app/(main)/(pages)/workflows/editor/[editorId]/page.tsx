@@ -1,13 +1,23 @@
+import { ConnectionsProvider } from '@/providers/connections-provider'
+import EditorProvider from '@/providers/editor-provider'
 import React from 'react'
+import EditorCanvas from './_components/editor-canvas'
 
 type Props = {}
 
-const page = (props: Props) => {
+const Page = (props: Props) => {
   return (
-    <div className="bg-blue-500 border-4 border-red-400 w-full flex flex-col gap-4 h-fit overflow-visible">
-Editor Page
+    <div className="h-full">
+      <EditorProvider>
+        <ConnectionsProvider>
+
+        
+          <EditorCanvas />
+          <div></div>
+        </ConnectionsProvider>
+      </EditorProvider>
     </div>
   )
 }
 
-export default page
+export default Page

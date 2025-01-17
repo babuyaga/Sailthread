@@ -63,6 +63,8 @@ const editorReducer = (
   state: EditorState = initialState,
   action: EditorActions
 ): EditorState => {
+
+  
   switch (action.type) {
     case 'REDO':
       if (state.history.currentIndex < state.history.history.length - 1) {
