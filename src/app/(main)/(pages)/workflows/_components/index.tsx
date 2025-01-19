@@ -29,48 +29,7 @@ const Workflows = async (props: Props) => {
               name="Automation Workflow"
               publish={true}
             />
-              <Workflow
-              key="safsafasdfasdf123"
-              id="1324214123412sdf"
-              name="Automation Workflow"
-              publish={true}
-            />
-              <Workflow
-              key="safsafasdfasdf123"
-              id="1324214123412sdf"
-              name="Automation Workflow"
-              publish={true}
-            />
-              <Workflow
-              key="safsafasdfasdf123"
-              id="1324214123412sdf"
-              name="Automation Workflow"
-              publish={true}
-            />
-              <Workflow
-              key="safsafasdfasdf123"
-              id="1324214123412sdf"
-              name="Automation Workflow"
-              publish={true}
-            />
-              <Workflow
-              key="safsafasdfasdf123"
-              id="1324214123412sdf"
-              name="Automation Workflow"
-              publish={true}
-            />
-              <Workflow
-              key="safsafasdfasdf123"
-              id="1324214123412sdf"
-              name="Automation Workflow"
-              publish={true}
-            />
-              <Workflow
-              key="safsafasdfasdf123"
-              id="1324214123412sdf"
-              name="Automation Workflow"
-              publish={true}
-            />
+             
       </section>
     </div>
   )

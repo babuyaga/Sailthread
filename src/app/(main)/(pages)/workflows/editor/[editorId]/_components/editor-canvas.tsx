@@ -2,7 +2,8 @@
 import { EditorCanvasCardType, EditorNodeType } from '@/lib/types'
 import { useEditor } from '@/providers/editor-provider'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import ReactFlow, {
+import {
+  ReactFlow,
   Background,
   Connection,
   Controls,
@@ -15,7 +16,8 @@ import ReactFlow, {
   applyEdgeChanges,
   addEdge,
 } from '@xyflow/react'
-import 'reactflow/dist/style.css'
+
+import '@xyflow/react/dist/style.css'
 import EditorCanvasCardSingle from './editor-canvas-card-single'
 import {
   ResizableHandle,
@@ -26,9 +28,9 @@ import { toast } from 'sonner'
 import { usePathname } from 'next/navigation'
 import { v4 } from 'uuid'
 import { EditorCanvasDefaultCardTypes } from '@/lib/constants'
-// import FlowInstance from './flow-instance'
-// import EditorCanvasSidebar from './editor-canvas-sidebar'
-// import { onGetNodesEdges } from '../../../_actions/workflow-connections'
+import FlowInstance from './flow-instance'
+import EditorCanvasSidebar from './editor-canvas-sidebar'
+import { onGetNodesEdges } from '../../../_actions/workflow-connections'
 
 type Props = {}
 
@@ -42,7 +44,7 @@ const EditorCanvas = (props: Props) => {
   const [edges, setEdges] = useState(initialEdges)
   const [isWorkFlowLoading, setIsWorkFlowLoading] = useState<boolean>(false)
   const [reactFlowInstance, setReactFlowInstance] =
-    useState<ReactFlowInstance>()
+    useState<ReactFlowInstance | any>()
   const pathname = usePathname()
 
   const onDragOver = useCallback((event: any) => {
@@ -220,7 +222,7 @@ const EditorCanvas = (props: Props) => {
                 onClick={handleClickCanvas}
                 nodeTypes={nodeTypes}
               >
-                <Controls position="top-left" />
+                <Controls position="top-left" className="[&_button]:dark:bg-black"/>
                 <MiniMap
                   position="bottom-left"
                   className="!bg-background"
