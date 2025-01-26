@@ -1,6 +1,6 @@
 'use client'
 
-import { EditorActions, EditorNodeType } from '@/lib/types'
+import { EditorActions, EditorNodeEdge, EditorNodeType } from '@/lib/types'
 import {
   Dispatch,
   createContext,
@@ -13,26 +13,23 @@ export type EditorNode = EditorNodeType
 
 export type Editor = {
   elements: EditorNode[]
-  edges: {
-    id: string
-    source: string
-    target: string
-  }[]
+  edges: EditorNodeEdge[]
   selectedNode: EditorNodeType
-}
+}  //The editor elements is the list of nodes in the editor, edges are a list of connections between nodes, selectedNode is the node that is currently selected.
 
 export type HistoryState = {
   history: Editor[]
   currentIndex: number
-}
+} //historystate holds "versions" of editors. Each change adds a new version to the history state.
 
 export type EditorState = {
   editor: Editor
   history: HistoryState
-}
+} //combines the editor and it's history into a single state object
 
 const initialEditorState: EditorState['editor'] = {
   elements: [],
+   edges: [],
   selectedNode: {
     data: {
       completed: false,
@@ -46,7 +43,7 @@ const initialEditorState: EditorState['editor'] = {
     position: { x: 0, y: 0 },
     type: 'Trigger',
   },
-  edges: [],
+ 
 }
 
 const initialHistoryState: HistoryState = {
@@ -66,21 +63,6 @@ const editorReducer = (
 
   
   switch (action.type) {
-    case 'REDO':
-      if (state.history.currentIndex < state.history.history.length - 1) {
-        const nextIndex = state.history.currentIndex + 1
-        const nextEditorState = { ...state.history.history[nextIndex] }
-        const redoState = {
-          ...state,
-          editor: nextEditorState,
-          history: {
-            ...state.history,
-            currentIndex: nextIndex,
-          },
-        }
-        return redoState
-      }
-      return state
 
     case 'UNDO':
       if (state.history.currentIndex > 0) {
@@ -95,6 +77,23 @@ const editorReducer = (
           },
         }
         return undoState
+      }
+      return state
+
+
+    case 'REDO':
+      if (state.history.currentIndex < state.history.history.length - 1) {
+        const nextIndex = state.history.currentIndex + 1
+        const nextEditorState = { ...state.history.history[nextIndex] }
+        const redoState = {
+          ...state,
+          editor: nextEditorState,
+          history: {
+            ...state.history,
+            currentIndex: nextIndex,
+          },
+        }
+        return redoState
       }
       return state
 
@@ -125,13 +124,12 @@ export type EditorContextData = {
   setPreviewMode: (previewMode: boolean) => void
 }
 
-export const EditorContext = createContext<{
-  state: EditorState
-  dispatch: Dispatch<EditorActions>
-}>({
+export const EditorContext = createContext<{state: EditorState;dispatch: Dispatch<EditorActions>}>(
+  {
   state: initialState,
   dispatch: () => undefined,
-})
+}
+)
 
 type EditorProps = {
   children: React.ReactNode

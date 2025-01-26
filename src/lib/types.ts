@@ -55,6 +55,12 @@ export type EditorNodeType = {
   data: EditorCanvasCardType
 }
 
+export type EditorNodeEdge = {
+  id: string
+  source: string
+  target: string
+} //type added by JJ
+
 export type EditorNode = EditorNodeType
 
 export type EditorActions =
@@ -62,11 +68,7 @@ export type EditorActions =
       type: 'LOAD_DATA'
       payload: {
         elements: EditorNode[]
-        edges: {
-          id: string
-          source: string
-          target: string
-        }[]
+        edges: EditorNodeEdge[] //updated by JJ
       }
     }
   | {

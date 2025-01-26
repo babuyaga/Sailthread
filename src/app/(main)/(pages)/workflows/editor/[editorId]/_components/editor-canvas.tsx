@@ -39,12 +39,13 @@ const initialNodes: EditorNodeType[] = []
 const initialEdges: { id: string; source: string; target: string }[] = []
 
 const EditorCanvas = (props: Props) => {
+
+
   const { dispatch, state } = useEditor()
   const [nodes, setNodes] = useState(initialNodes)
   const [edges, setEdges] = useState(initialEdges)
   const [isWorkFlowLoading, setIsWorkFlowLoading] = useState<boolean>(false)
-  const [reactFlowInstance, setReactFlowInstance] =
-    useState<ReactFlowInstance | any>()
+  const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | any>()
   const pathname = usePathname()
 
   const onDragOver = useCallback((event: any) => {
@@ -98,6 +99,8 @@ const EditorCanvas = (props: Props) => {
       // and you don't need to subtract the reactFlowBounds.left/top anymore
       // details: https://reactflow.dev/whats-new/2023-11-10
       if (!reactFlowInstance) return
+
+
       const position = reactFlowInstance.screenToFlowPosition({
         x: event.clientX,
         y: event.clientY,
@@ -116,11 +119,16 @@ const EditorCanvas = (props: Props) => {
           type: type,
         },
       }
+
+      
       //@ts-ignore
       setNodes((nds) => nds.concat(newNode))
     },
     [reactFlowInstance, state]
   )
+
+
+
 
   const handleClickCanvas = () => {
     dispatch({
@@ -145,7 +153,7 @@ const EditorCanvas = (props: Props) => {
 
   useEffect(() => {
     dispatch({ type: 'LOAD_DATA', payload: { edges, elements: nodes } })
-  }, [nodes, edges])
+  }, [nodes, edges]) //Whenever nodes and edges change, this useEffect Dispatches it to the editor provider.
 
   const nodeTypes = useMemo(
     () => ({
@@ -213,13 +221,13 @@ const EditorCanvas = (props: Props) => {
                 onDrop={onDrop}
                 onDragOver={onDragOver}
                 nodes={state.editor.elements}
-                onNodesChange={onNodesChange}
-                edges={edges}
-                onEdgesChange={onEdgesChange}
-                onConnect={onConnect}
-                onInit={setReactFlowInstance}
-                fitView
-                onClick={handleClickCanvas}
+                onNodesChange={onNodesChange} //node drag, select, and move.
+                edges={edges} 
+                onEdgesChange={onEdgesChange} //edge select and remove
+                onConnect={onConnect} //When a connection line is completed and two nodes are connected by the user, this event fires with the new connection
+                onInit={setReactFlowInstance} //Provides a method to programmatically interact with the flow instance. 
+                fitView //Adjusts the zoom level to show all the nodes in one view
+                onClick={handleClickCanvas} //Triggered when there's a click inside the canvas. Triggered regardless of whether it's on a Node or the empty canvas
                 nodeTypes={nodeTypes}
               >
                 <Controls position="top-left" className="[&_button]:dark:bg-black"/>
