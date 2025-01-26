@@ -4,7 +4,7 @@ import { useNodeConnections } from '@/providers/connections-provider'
 import { useEditor } from '@/providers/editor-provider'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Separator } from '@/components/ui/separator'
 import { CONNECTIONS, EditorCanvasDefaultCardTypes } from '@/lib/constants'
 import {
@@ -36,21 +36,21 @@ type Props = {
 const EditorCanvasSidebar = ({ nodes }: Props) => {
   const { state } = useEditor()
   const { nodeConnection } = useNodeConnections()
-  const { googleFile, setSlackChannels } = useFuzzieStore()
-  useEffect(() => {
-    if (state) {
-      onConnections(nodeConnection, state, googleFile)
-    }
-  }, [state])
+  // const { googleFile, setSlackChannels } = useFuzzieStore()
+  // useEffect(() => {
+  //   if (state) {
+  //     onConnections(nodeConnection, state, googleFile)
+  //   }
+  // }, [state])
 
-  useEffect(() => {
-    if (nodeConnection.slackNode.slackAccessToken) {
-      fetchBotSlackChannels(
-        nodeConnection.slackNode.slackAccessToken,
-        setSlackChannels
-      )
-    }
-  }, [nodeConnection])
+  // useEffect(() => {
+  //   if (nodeConnection.slackNode.slackAccessToken) {
+  //     fetchBotSlackChannels(
+  //       nodeConnection.slackNode.slackAccessToken,
+  //       setSlackChannels
+  //     )
+  //   }
+  // }, [nodeConnection])
 
   return (
     <aside>
@@ -63,9 +63,14 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
           <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
         <Separator />
-        <TabsContent
+       
+       
+       
+       
+       
+        <TabsContent  //tab for the cards
           value="actions"
-          className="flex flex-col gap-4 p-4"
+          className="flex flex-col gap-4 p-4 pb-24"
         >
           {Object.entries(EditorCanvasDefaultCardTypes)
             .filter(
@@ -92,9 +97,13 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
               </Card>
             ))}
         </TabsContent>
-        <TabsContent
+
+
+
+
+        <TabsContent //tab for settings
           value="settings"
-          className="-mt-6"
+          className="-mt-6 p-2"
         >
           <div className="px-2 py-4 text-center text-xl font-bold">
             {state.editor.selectedNode.data.title}

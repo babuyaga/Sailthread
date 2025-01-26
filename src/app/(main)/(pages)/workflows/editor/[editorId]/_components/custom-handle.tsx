@@ -15,7 +15,9 @@ const CustomHandle = (props: Props) => {
   return (
     <Handle
       {...props}
-      isValidConnection={(e) => {
+      isValidConnection={ //Check if it's a valid connection
+        
+        (e) => {
         const sourcesFromHandleInState = state.editor.edges.filter(
           (edge) => edge.source === e.source
         ).length
@@ -31,8 +33,12 @@ const CustomHandle = (props: Props) => {
         if (sourceNode?.type === 'Condition') return true
         if (sourcesFromHandleInState < 1) return true
         return false
-      }}
-      className="!-bottom-2 !h-4 !w-4 dark:bg-neutral-800"
+      }
+    
+    
+    
+    }
+      className="!-bottom-0 !h-4 !w-4 dark:bg-neutral-800"
     />
   )
 }
