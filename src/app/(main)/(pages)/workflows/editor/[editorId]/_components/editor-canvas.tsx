@@ -69,7 +69,7 @@ const EditorCanvas = (props: Props) => {
   )
 
   const onConnect = useCallback(
-    (params: Edge | Connection) => setEdges((eds) => addEdge(params, eds)),
+    (params: Edge | Connection) => setEdges((eds) => addEdge({...params,animated:true}, eds)),
     []
   )
 
@@ -251,7 +251,7 @@ const EditorCanvas = (props: Props) => {
       <ResizableHandle />
       <ResizablePanel
         defaultSize={40}
-        className="relative sm:block"
+        className="relative sm:block min-w-96 max-w-[620px]"
       >
         {isWorkFlowLoading ? (
           <div className="absolute flex h-full w-full items-center justify-center">

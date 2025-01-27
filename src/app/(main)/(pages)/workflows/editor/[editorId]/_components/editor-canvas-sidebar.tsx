@@ -25,9 +25,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-// import RenderConnectionAccordion from './render-connection-accordion'
-// import RenderOutputAccordion from './render-output-accordian'
-// import { useFuzzieStore } from '@/store'
+import RenderConnectionAccordion from './render-connection-accordion'
+import RenderOutputAccordion from './render-output-accordion'
+import { useFuzzieStore } from '@/store'
 
 type Props = {
   nodes: EditorNodeType[]
@@ -74,10 +74,13 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
         >
           {Object.entries(EditorCanvasDefaultCardTypes)
             .filter(
-              ([_, cardType]) =>
-                (!nodes.length && cardType.type === 'Trigger') ||
+              ([_, cardType]) =>{
+                console.log("The default card types",EditorCanvasDefaultCardTypes);
+                console.log("The _ is this",_)
+                console.log("The cardType is this",cardType)
+                return (!nodes.length && cardType.type === 'Trigger') ||
                 (nodes.length && cardType.type === 'Action')
-            )
+})
             .map(([cardKey, cardValue]) => (
               <Card
                 key={cardKey}
@@ -118,13 +121,13 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
                 Account
               </AccordionTrigger>
               <AccordionContent>
-                {/* {CONNECTIONS.map((connection) => (
+                {CONNECTIONS.map((connection) => (
                   <RenderConnectionAccordion
                     key={connection.title}
                     state={state}
                     connection={connection}
                   />
-                ))} */}
+                ))}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem
@@ -134,10 +137,10 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
               <AccordionTrigger className="!no-underline">
                 Action
               </AccordionTrigger>
-              {/* <RenderOutputAccordion
+              <RenderOutputAccordion
                 state={state}
                 nodeConnection={nodeConnection}
-              /> */}
+              />
             </AccordionItem>
           </Accordion>
         </TabsContent>
