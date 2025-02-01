@@ -10,7 +10,9 @@ const Tabs = TabsPrimitive.Root
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
->(({ className, ...props }, ref) => (
+>(({ className, ...props }, ref) => {
+  console.log("Tablist", className,props)
+  return (
   <TabsPrimitive.List
     ref={ref}
     className={cn(
@@ -19,13 +21,15 @@ const TabsList = React.forwardRef<
     )}
     {...props}
   />
-))
+)})
 TabsList.displayName = TabsPrimitive.List.displayName
 
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
->(({ className, ...props }, ref) => (
+>(({ className, ...props }, ref) => {
+  console.log("Action made", className, props)
+  return (
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
@@ -34,7 +38,7 @@ const TabsTrigger = React.forwardRef<
     )}
     {...props}
   />
-))
+)})
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName
 
 const TabsContent = React.forwardRef<

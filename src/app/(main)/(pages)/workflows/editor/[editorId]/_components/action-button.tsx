@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react'
 import { Option } from './content-based-on-title'
-import { ConnectionProviderProps } from '@/providers/connections-provider'
+import { ConnectionProviderProps } from '@/lib/types'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { onCreateNodeTemplate } from '../../../_actions/workflow-connections'
 import { toast } from 'sonner'
-// import { onCreateNewPageInDatabase } from '@/app/(main)/(pages)/connections/_actions/notion-connection'
-// import { postMessageToSlack } from '@/app/(main)/(pages)/connections/_actions/slack-connection'
-// import { postContentToWebHook } from '@/app/(main)/(pages)/connections/_actions/discord-connection'
+import { onCreateNewPageInDatabase } from '@/app/(main)/(pages)/connections/_actions/notion-connection'
+import { postMessageToSlack } from '@/app/(main)/(pages)/connections/_actions/slack-connection'
+import { postContentToWebHook } from '@/app/(main)/(pages)/connections/_actions/discord-connection'
 
 type Props = {
   currentService: string

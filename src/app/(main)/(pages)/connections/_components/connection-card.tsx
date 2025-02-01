@@ -26,7 +26,7 @@ const ConnectionCard = ({
   connected,
 }: Props) => {
   return (
-    <Card className="flex w-full items-center justify-between">
+    <Card className="flex w-full items-center justify-between max-w-[840px]">
       <CardHeader className="flex flex-col gap-4">
         <div className="flex flex-row gap-2">
           <Image
@@ -44,7 +44,7 @@ const ConnectionCard = ({
       </CardHeader>
       <div className="flex flex-col items-center gap-2 p-4">
         {connected[type] ? (
-          <div className="border-bg-primary rounded-lg border-2 px-3 py-2 font-bold text-white">
+          <div className="border-bg-primary rounded-lg border-2 px-3 py-2 font-bold dark:text-white">
             Connected
           </div>
         ) : (

@@ -17,7 +17,7 @@ import GoogleDriveFiles from './google-drive-files'
 import ActionButton from './action-button'
 import axios from 'axios'
 import { toast } from 'sonner'
-// import { getFileMetaData } from '@/app/(main)/(pages)/connections/_actions/google-connection'
+import { getFileMetaData } from '@/app/(main)/(pages)/connections/_actions/google-connection'
 
 export interface Option {
   value: string
@@ -66,7 +66,7 @@ const ContentBasedOnTitle = ({
       }
     }
     reqGoogle()
-  }, [])
+  }, [setFile])
 
   // @ts-ignore
   const nodeConnectionType: any = nodeConnection[nodeMapper[title]]
@@ -101,7 +101,7 @@ const ContentBasedOnTitle = ({
         <div className="flex flex-col gap-3 px-6 py-3 pb-20">
           <p>{title === 'Notion' ? 'Values to be stored' : 'Message'}</p>
 
-          {/* <Input
+          <Input
             type="text"
             value={nodeConnectionType.content}
             onChange={(event) => onContentChange(nodeConnection, title, event)}
@@ -129,7 +129,7 @@ const ContentBasedOnTitle = ({
             nodeConnection={nodeConnection}
             channels={selectedSlackChannels}
             setChannels={setSelectedSlackChannels}
-          /> */}
+          />
         </div>
       </Card>
     </AccordionContent>

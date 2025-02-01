@@ -123,6 +123,14 @@ const EditorCanvas = (props: Props) => {
       
       //@ts-ignore
       setNodes((nds) => nds.concat(newNode))
+
+      dispatch({
+        type: 'SELECTED_ELEMENT',
+        payload: {
+          element: newNode,
+        },
+      })
+
     },
     [reactFlowInstance, state]
   )

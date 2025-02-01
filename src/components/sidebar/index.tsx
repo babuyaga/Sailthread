@@ -23,8 +23,9 @@ const MenuOptions = (props: Props) => {
   return (
     <nav className=" dark:bg-black fixed z-2 h-screen overflow-scroll  justify-between flex items-center flex-col  gap-6 py-6 pt-4 px-2">
       <div className="flex items-center justify-between flex-col gap-4 h-full ">
-        <div className="flex items-center justify-center flex-col gap-4 mb-2"><Link
-          className="flex font-bold flex-row scale-[1.2] mb-2 p-0.5 rounded shadow-sm dark:shadow-gray-600"
+        <div className="flex items-center justify-center flex-col gap-4 mb-2">
+          <Link
+          className="flex font-bold flex-row scale-[1.2] mb-6 p-0.5 rounded shadow-sm dark:shadow-gray-600"
           href="/"
         >
            <Image

@@ -5,14 +5,13 @@ import {
   Dispatch,
   createContext,
   useContext,
-  useEffect,
   useReducer,
 } from 'react'
 
-export type EditorNode = EditorNodeType
+// export type EditorNode = EditorNodeType
 
 export type Editor = {
-  elements: EditorNode[]
+  elements: EditorNodeType[]
   edges: EditorNodeEdge[]
   selectedNode: EditorNodeType
 }  //The editor elements is the list of nodes in the editor, edges are a list of connections between nodes, selectedNode is the node that is currently selected.
@@ -31,6 +30,9 @@ const initialEditorState: EditorState['editor'] = {
   elements: [],
    edges: [],
   selectedNode: {
+    id: '',
+    position: { x: 0, y: 0 },
+    type: 'Trigger',
     data: {
       completed: false,
       current: false,
@@ -39,9 +41,6 @@ const initialEditorState: EditorState['editor'] = {
       title: '',
       type: 'Trigger',
     },
-    id: '',
-    position: { x: 0, y: 0 },
-    type: 'Trigger',
   },
  
 }

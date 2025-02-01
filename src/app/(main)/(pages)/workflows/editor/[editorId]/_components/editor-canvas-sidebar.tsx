@@ -27,7 +27,7 @@ import {
 } from '@/components/ui/accordion'
 import RenderConnectionAccordion from './render-connection-accordion'
 import RenderOutputAccordion from './render-output-accordion'
-import { useFuzzieStore } from '@/store'
+import { SailthreadStore } from '@/store'
 
 type Props = {
   nodes: EditorNodeType[]
@@ -36,21 +36,21 @@ type Props = {
 const EditorCanvasSidebar = ({ nodes }: Props) => {
   const { state } = useEditor()
   const { nodeConnection } = useNodeConnections()
-  // const { googleFile, setSlackChannels } = useFuzzieStore()
-  // useEffect(() => {
-  //   if (state) {
-  //     onConnections(nodeConnection, state, googleFile)
-  //   }
-  // }, [state])
+  const { googleFile, setSlackChannels } = SailthreadStore()
+  useEffect(() => {
+    if (state) {
+      onConnections(nodeConnection, state, googleFile)
+    }
+  }, [state])
 
-  // useEffect(() => {
-  //   if (nodeConnection.slackNode.slackAccessToken) {
-  //     fetchBotSlackChannels(
-  //       nodeConnection.slackNode.slackAccessToken,
-  //       setSlackChannels
-  //     )
-  //   }
-  // }, [nodeConnection])
+  useEffect(() => {
+    if (nodeConnection.slackNode.slackAccessToken) {
+      fetchBotSlackChannels(
+        nodeConnection.slackNode.slackAccessToken,
+        setSlackChannels
+      )
+    }
+  }, [nodeConnection, setSlackChannels])
 
   return (
     <aside>
@@ -75,9 +75,7 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
           {Object.entries(EditorCanvasDefaultCardTypes)
             .filter(
               ([_, cardType]) =>{
-                console.log("The default card types",EditorCanvasDefaultCardTypes);
-                console.log("The _ is this",_)
-                console.log("The cardType is this",cardType)
+               
                 return (!nodes.length && cardType.type === 'Trigger') ||
                 (nodes.length && cardType.type === 'Action')
 })
