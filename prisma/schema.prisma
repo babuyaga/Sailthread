@@ -119,6 +119,11 @@ model Workflows {
   cronPath          String?
   publish           Boolean? @default(false)
   description       String
+  notionTableId     String?
+  notionPageId      String?
+  notionTableName   String?
+  notionPageName    String?
+  notionActionType  String?
   User              User     @relation(fields: [userId], references: [clerkId])
   userId            String
 }

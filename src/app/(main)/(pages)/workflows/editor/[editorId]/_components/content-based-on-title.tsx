@@ -1,5 +1,5 @@
 import { AccordionContent } from '@/components/ui/accordion'
-import { ConnectionProviderProps } from '@/providers/connections-provider'
+import { ConnectionProviderProps } from '@/lib/types'
 import { EditorState } from '@/providers/editor-provider'
 import { nodeMapper } from '@/lib/types'
 import React, { useEffect } from 'react'
@@ -53,20 +53,21 @@ const ContentBasedOnTitle = ({
   const title = selectedNode.data.title
 
   useEffect(() => {
-    const reqGoogle = async () => {
-      const response: { data: { message: { files: any } } } = await axios.get(
-        '/api/drive'
-      )
-      if (response) {
-        console.log(response.data.message.files[0])
-        toast.message("Fetched File")
-        setFile(response.data.message.files[0])
-      } else {
-        toast.error('Something went wrong')
+    const fetchGoogleDriveFiles = async () => {
+      try {
+        const response = await axios.get('/api/drive');
+        if (response.data.message.files[0]) {
+          toast.message("Fetched File");
+          setFile(response.data.message.files[0]);
+        }
+      } catch (error) {
+        toast.error('Something went wrong');
       }
-    }
-    reqGoogle()
-  }, [setFile])
+    };
+    fetchGoogleDriveFiles();
+  }, [setFile]);
+
+
 
   // @ts-ignore
   const nodeConnectionType: any = nodeConnection[nodeMapper[title]]
@@ -91,6 +92,8 @@ const ContentBasedOnTitle = ({
 
   return (
     <AccordionContent>
+        
+
       <Card>
         {title === 'Discord' && (
           <CardHeader>
@@ -107,6 +110,8 @@ const ContentBasedOnTitle = ({
             onChange={(event) => onContentChange(nodeConnection, title, event)}
           />
 
+         
+         
           {JSON.stringify(file) !== '{}' && title !== 'Google Drive' && (
             <Card className="w-full">
               <CardContent className="px-2 py-3">
@@ -123,7 +128,17 @@ const ContentBasedOnTitle = ({
               </CardContent>
             </Card>
           )}
+
+
+
+
+
           {title === 'Google Drive' && <GoogleDriveFiles />}
+
+
+
+
+          
           <ActionButton
             currentService={title}
             nodeConnection={nodeConnection}

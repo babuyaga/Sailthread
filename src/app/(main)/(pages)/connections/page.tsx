@@ -90,7 +90,7 @@ const Connections = async (props: Props) => {
 
     const user_info = await getUserData(user.id)
 
-    //get user info with all connections
+    //get connections of a particular user.
     user_info?.connections.map((connection) => {
       connections[connection.type] = true
       return (connections[connection.type] = true)
@@ -105,8 +105,8 @@ const Connections = async (props: Props) => {
 
   return (
     <div className="relative flex flex-col gap-4">
-      <h1 className="sticky top-0 z-[10] flex items-center justify-between border-b bg-background/50 p-6 text-4xl backdrop-blur-lg">
-        Connections
+      <h1 className="mt-4 sticky top-0 z-[10] flex items-center justify-between border-b bg-background/50 p-1.5 pl-6 text-3xl backdrop-blur-lg">
+      <span className="my-auto">Connections</span>
       </h1>
       <div className="relative flex flex-col gap-4">
         <section className="flex flex-col gap-4 p-6 text-muted-foreground">

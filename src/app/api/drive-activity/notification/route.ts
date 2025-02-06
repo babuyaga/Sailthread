@@ -1,5 +1,5 @@
 import { postContentToWebHook } from '@/app/(main)/(pages)/connections/_actions/discord-connection'
-import { onCreateNewPageInDatabase } from '@/app/(main)/(pages)/connections/_actions/notion-connection'
+import { onCreateNewPageInDatabase, addRowToNotionTable } from '@/app/(main)/(pages)/connections/_actions/notion-connection'
 import { postMessageToSlack } from '@/app/(main)/(pages)/connections/_actions/slack-connection'
 import { db } from '@/lib/db'
 import axios from 'axios'
@@ -66,11 +66,19 @@ export async function POST(req: NextRequest) {
               flowPath.splice(flowPath[current], 1)
             }
             if (flowPath[current] == 'Notion') {
-              await onCreateNewPageInDatabase(
-                flow.notionDbId!,
-                flow.notionAccessToken!,
-                JSON.parse(flow.notionTemplate!)
-              )
+              if (flow.notionActionType === 'page') {
+                await onCreateNewPageInDatabase(
+                  flow.notionDbId!,
+                  flow.notionAccessToken!,
+                  JSON.parse(flow.notionTemplate!)
+                )
+              } else if (flow.notionActionType === 'table') {
+                await addRowToNotionTable(
+                  flow.notionTableId!,
+                  flow.notionAccessToken!,
+                  JSON.parse(flow.notionTemplate!)
+                )
+              }
               flowPath.splice(flowPath[current], 1)
             }
 

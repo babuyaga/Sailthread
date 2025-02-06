@@ -28,6 +28,8 @@ import {
 import RenderConnectionAccordion from './render-connection-accordion'
 import RenderOutputAccordion from './render-output-accordion'
 import { SailthreadStore } from '@/store'
+import { Toaster } from "@/components/ui/sonner"
+
 
 type Props = {
   nodes: EditorNodeType[]
@@ -37,6 +39,8 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
   const { state } = useEditor()
   const { nodeConnection } = useNodeConnections()
   const { googleFile, setSlackChannels } = SailthreadStore()
+  const [activeTab, setActiveTab] = useState<string>('actions')
+
   useEffect(() => {
     if (state) {
       onConnections(nodeConnection, state, googleFile)
@@ -52,15 +56,27 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
     }
   }, [nodeConnection, setSlackChannels])
 
+  useEffect(() => {
+    if (state.editor.selectedNode.id) {
+      setActiveTab('settings')
+    } else {
+      setActiveTab('actions')
+    }
+  }, [state.editor.selectedNode.id])
+
+
   return (
     <aside>
       <Tabs
-        defaultValue="actions"
+        value={activeTab}
+        onValueChange={setActiveTab}
         className="h-screen overflow-scroll pb-24"
       >
+        <Toaster />
         <TabsList className="bg-transparent">
           <TabsTrigger value="actions">Actions</TabsTrigger>
           <TabsTrigger value="settings">Settings</TabsTrigger>
+
         </TabsList>
         <Separator />
        

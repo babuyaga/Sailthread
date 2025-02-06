@@ -28,26 +28,33 @@ const CustomModal = ({ children, subheading, title, defaultOpen }: Props) => {
     <Drawer
       open={isOpen}
       onClose={handleClose}
-    >
+      >
       <DrawerContent>
+
+
         <DrawerHeader>
           <DrawerTitle className="text-center">{title}</DrawerTitle>
-          <DrawerDescription className="text-center flex flex-col items-center gap-4 h-96 overflow-scroll">
-            {subheading}
-            {children}
-          </DrawerDescription>
+          {/* <DrawerDescription >
+           
+          </DrawerDescription> */}
+          <div className="text-center flex flex-col items-center gap-4 h-96 overflow-scroll">
+          {subheading}
+          {children}
+          </div>
         </DrawerHeader>
         <DrawerFooter className="flex flex-col gap-4 bg-background border-t-[1px] border-t-muted">
           <DrawerClose>
-            <Button
-              variant="ghost"
-              className="w-full"
+            <div
+              className="w-full p-2 rounded-md hover:bg-gray-100"
               onClick={handleClose}
             >
               Close
-            </Button>
+            </div>
           </DrawerClose>
         </DrawerFooter>
+
+
+        
       </DrawerContent>
     </Drawer>
   )

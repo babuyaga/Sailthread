@@ -9,8 +9,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
-// import { toast } from 'sonner'
-// import { onFlowPublish } from '../_actions/workflow-connections'
+import { toast } from 'sonner'
+import { onFlowPublish } from '../_actions/workflow-connections'
 
 type Props = {
   name: string
@@ -21,11 +21,11 @@ type Props = {
 
 const Workflow = ({ description, id, name, publish }: Props) => {
   const onPublishFlow = async (event: any) => {
-    // const response = await onFlowPublish(
-    //   id,
-    //   event.target.ariaChecked === 'false'
-    // )
-    // if (response) toast.message(response)
+    const response = await onFlowPublish(
+      id,
+      event.target.ariaChecked === 'false'
+    )
+    if (response) toast.message(response)
   }
 
   return (

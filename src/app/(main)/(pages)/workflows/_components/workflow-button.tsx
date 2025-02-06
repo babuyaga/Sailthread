@@ -2,7 +2,7 @@
 import Workflowform from '@/components/forms/workflow-form'
 import CustomModal from '@/components/global/custom-modal'
 import { Button } from '@/components/ui/button'
-// import { useBilling } from '@/providers/billing-provider'
+import { useBilling } from '@/providers/billing-provider'
 import { useModal } from '@/providers/modal-provider'
 import { Plus } from 'lucide-react'
 import React from 'react'
@@ -11,10 +11,9 @@ type Props = {}
 
 const WorkflowButton = (props: Props) => {
   const { setOpen, setClose } = useModal()
-//   const { credits } = useBilling()
-const credits = '1'
+  const { credits } = useBilling()
+
   const handleClick = () => {
-    console.log("Clicked")
     setOpen(
       <CustomModal
         title="Create a Workflow Automation"

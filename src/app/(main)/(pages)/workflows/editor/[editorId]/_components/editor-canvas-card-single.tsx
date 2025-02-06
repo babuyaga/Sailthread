@@ -13,6 +13,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import clsx from 'clsx'
+import { cn } from '@/lib/utils'
 
 type Props = {}
 
@@ -36,20 +37,25 @@ const EditorCanvasCardSingle = ({ data }: { data: EditorCanvasCardType }) => {
         onClick={(e) => {
           e.stopPropagation()
           const val = state.editor.elements.find((n) => n.id === nodeId)
-          if (val)
+          if (val) {
             dispatch({
               type: 'SELECTED_ELEMENT',
               payload: {
                 element: val,
               },
             })
+          }
         }}
-        className="relative max-w-[400px] dark:border-muted-foreground/70"
+        className={cn("relative max-w-[400px] dark:border-muted-foreground/70 ",{
+          "border-2 border-black rounded-lg  dark:border-muted-foreground/70 dark:bg-gradient-to-b dark:from-black dark:via-black  dark:to-violet-950  transition-all duration-300": state.editor.selectedNode.id === nodeId
+        })}
       >
         <CardHeader className="flex flex-row items-center gap-4">
           <div>{logo}</div>
+
           <div>
             <CardTitle className="text-md">{data.title}</CardTitle>
+
             <CardDescription>
               <p className="text-xs text-muted-foreground/50">
                 <b className="text-muted-foreground/80">ID: </b>
@@ -59,12 +65,12 @@ const EditorCanvasCardSingle = ({ data }: { data: EditorCanvasCardType }) => {
             </CardDescription>
           </div>
         </CardHeader>
-        <Badge
+        {/* <Badge
           variant="secondary"
           className="absolute right-2 top-2"
         >
           {data.type}
-        </Badge>
+        </Badge> */}
         <div
           className={clsx('absolute left-3 top-4 h-2 w-2 rounded-full', {
             'bg-green-500': Math.random() < 0.6,

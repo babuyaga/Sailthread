@@ -7,9 +7,11 @@ type Props = {}
 const WorkflowPage = (props: Props) => {
   return (
     <div className="flex flex-col relative">
-      <div className="mt-5 sticky top-0 z-[10] flex items-center justify-between border-b bg-background/50 pb-3 pl-6 text-3xl backdrop-blur-lg">
-      <div className="flex gap-10">Workflows
-        <WorkflowButton /></div>
+      <div className="mt-5 sticky top-0 z-[10] flex items-center justify-between border-b bg-background/50 p-1.5 pl-6 text-3xl backdrop-blur-lg">
+      <div className="flex gap-10  my-auto flex-row justify-center">
+        <span className="">Workflows</span>
+        <WorkflowButton />
+        </div>
     </div>
       
       <Workflows />

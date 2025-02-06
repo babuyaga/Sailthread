@@ -1,5 +1,5 @@
 'use client'
-import { ConnectionProviderProps } from '@/providers/connections-provider'
+import { ConnectionProviderProps } from './types'
 import { EditorCanvasCardType } from './types'
 import { EditorState } from '@/providers/editor-provider'
 import { getDiscordConnectionUrl } from '@/app/(main)/(pages)/connections/_actions/discord-connection'
