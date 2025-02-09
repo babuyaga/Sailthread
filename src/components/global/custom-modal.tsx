@@ -11,7 +11,7 @@ import {
 import { useModal } from '@/providers/modal-provider'
 
 import React from 'react'
-import { Button } from '../ui/button'
+
 
 type Props = {
   title: string

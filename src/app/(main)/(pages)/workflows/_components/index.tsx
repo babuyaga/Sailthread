@@ -1,3 +1,4 @@
+
 import React from 'react'
 import Workflow from './workflow'
 import { onGetWorkflows } from '../_actions/workflow-connections'
@@ -7,6 +8,13 @@ type Props = {}
 
 const Workflows = async (props: Props) => {
   const workflows = await onGetWorkflows()
+  const clientConsole= () => {
+    'use client'
+    console.log("This is the workflows data",workflows);
+  }
+
+clientConsole()
+
   return (
     <div className="relative flex flex-col gap-4">
       <section className="flex flex-col m-2 gap-5 pt-10">

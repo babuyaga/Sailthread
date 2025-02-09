@@ -8,6 +8,8 @@ import { toast } from 'sonner'
 import { onCreateNewPageInDatabase } from '@/app/(main)/(pages)/connections/_actions/notion-connection'
 import { postMessageToSlack } from '@/app/(main)/(pages)/connections/_actions/slack-connection'
 import { postContentToWebHook } from '@/app/(main)/(pages)/connections/_actions/discord-connection'
+import { useEditor } from '@/providers/editor-provider'
+
 
 type Props = {
   currentService: string
@@ -23,6 +25,7 @@ const ActionButton = ({
   setChannels,
 }: Props) => {
   const pathname = usePathname()
+  const { state } = useEditor()
 
   const onSendDiscordMessage = useCallback(async () => {
     const response = await postContentToWebHook(
@@ -36,7 +39,7 @@ const ActionButton = ({
         content: '',
       }))
     }
-  }, [nodeConnection.discordNode])
+  }, [nodeConnection])
 
   const onStoreNotionContent = useCallback(async () => {
     console.log(
@@ -55,7 +58,7 @@ const ActionButton = ({
         content: '',
       }))
     }
-  }, [nodeConnection.notionNode])
+  }, [nodeConnection])
 
   const onStoreSlackContent = useCallback(async () => {
     const response = await postMessageToSlack(
@@ -73,14 +76,15 @@ const ActionButton = ({
     } else {
       toast.error(response.message)
     }
-  }, [nodeConnection.slackNode, channels])
+  }, [nodeConnection, channels, setChannels])
 
   const onCreateLocalNodeTempate = useCallback(async () => {
     if (currentService === 'Discord') {
       const response = await onCreateNodeTemplate(
         nodeConnection.discordNode.content,
         currentService,
-        pathname.split('/').pop()!
+        pathname.split('/').pop()!,
+        state.editor.selectedNode.id
       )
 
       if (response) {
@@ -92,6 +96,7 @@ const ActionButton = ({
         nodeConnection.slackNode.content,
         currentService,
         pathname.split('/').pop()!,
+        state.editor.selectedNode.id,
         channels,
         nodeConnection.slackNode.slackAccessToken
       )
@@ -106,16 +111,18 @@ const ActionButton = ({
         JSON.stringify(nodeConnection.notionNode.content),
         currentService,
         pathname.split('/').pop()!,
+        state.editor.selectedNode.id,
         [],
         nodeConnection.notionNode.accessToken,
         nodeConnection.notionNode.databaseId
+
       )
 
       if (response) {
         toast.message(response)
       }
     }
-  }, [nodeConnection, channels])
+  }, [nodeConnection, channels, state.editor.selectedNode.id, pathname, currentService])
 
   const renderActionButton = () => {
     switch (currentService) {

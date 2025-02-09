@@ -179,3 +179,90 @@ export const CONNECTIONS: Connection[] = [
     slackSpecial: true,
   },
 ]
+
+
+
+
+export const CONNECTIONSNODE: Connection[] = [
+  {
+    title: 'Google Drive',
+    description: 'Connect your google drive to listen to folder changes',
+    image: '/googleDrive.png',
+    connectionKey: 'googleNode',
+    alwaysTrue: true,
+  },
+  {
+    title: 'Discord',
+    description: 'Connect your discord to send notification and messages',
+    image: '/discord.png',
+    connectionKey: 'discordNode',
+    accessTokenKey: 'webhookURL',
+  },
+  {
+    title: 'Notion',
+    description: 'Create entries in your notion dashboard and automate tasks.',
+    image: '/notion.png',
+    connectionKey: 'notionNode',
+    accessTokenKey: 'accessToken',
+  },
+  {
+    title: 'Slack',
+    description:
+      'Use slack to send notifications to team members through your own custom bot.',
+    image: '/slack.png',
+    connectionKey: 'slackNode',
+    accessTokenKey: 'slackAccessToken',
+    slackSpecial: true,
+  },
+  {
+    title: 'Email',
+    description: 'Send an email to a user',
+    image: '',
+    connectionKey: 'emailNode',
+    accessTokenKey: 'emailAccessToken',
+  },
+  {
+    title: 'AI',
+    description: 'Use AI to summarize, respond, create and much more.',
+    image: '',
+    connectionKey: 'aiNode',
+  },
+  {
+    title: 'Condition',
+    description: 'Boolean operator that creates different conditions lanes.',
+    image: '',
+    connectionKey: 'conditionNode',
+  },
+  {
+    title: 'Wait',
+    description: 'Delay the next action step by using the wait timer.',
+    image: '',
+    connectionKey: 'waitNode',
+  },
+  {
+    title: 'Trigger',
+    description: 'An event that starts the workflow.',
+    image: '',
+    connectionKey: 'triggerNode',
+  },
+  {
+    title: 'Action',
+    description: 'An event that happens after the workflow begins',
+    image: '',
+    connectionKey: 'actionNode',
+  },
+  {
+    title: 'Custom Webhook',
+    description: 'Connect any app that has an API key and send data to your applicaiton.',
+    image: '',
+    connectionKey: 'customWebhookNode',
+
+  },
+  {
+    title: 'Google Calendar',
+    description: 'Create a calendar invite.',
+    image: '',
+    connectionKey: 'googleCalendarNode',
+  }
+    
+]

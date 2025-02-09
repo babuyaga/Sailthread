@@ -18,7 +18,7 @@ type Props = {
   connected: {} & any
 }
 
-const ConnectionCard = ({
+const ConnectionCardFlow = ({
   description,
   type,
   icon,
@@ -27,19 +27,19 @@ const ConnectionCard = ({
 }: Props) => {
   return (
     <Card className="flex w-full items-center justify-between max-w-[840px]">
-      <CardHeader className="flex flex-col gap-4">
+      <CardHeader className="flex flex-row gap-4">
         <div className="flex flex-row gap-2">
-          <Image
+         {icon? <Image
             src={icon}
             alt={title}
             height={30}
             width={30}
             className="object-contain"
-          />
+          />:""}
         </div>
         <div>
           <CardTitle className="text-lg">{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
+
         </div>
       </CardHeader>
       <div className="flex flex-col items-center gap-2 p-4 ">
@@ -68,4 +68,4 @@ const ConnectionCard = ({
   )
 }
 
-export default ConnectionCard
+export default ConnectionCardFlow

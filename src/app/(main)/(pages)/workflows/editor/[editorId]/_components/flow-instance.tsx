@@ -21,6 +21,7 @@ const FlowInstance = ({ children, edges, nodes }: Props) => {
   const { nodeConnection } = useNodeConnections()
 
   const onFlowAutomation = useCallback(async () => {
+    toast.message("Saving Workflow")
     const flow = await onCreateNodesEdges(
       pathname.split('/').pop()!,
       JSON.stringify(nodes),
@@ -55,7 +56,7 @@ const FlowInstance = ({ children, edges, nodes }: Props) => {
   }, [edges])
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 border-t-1 border pt-4 p-2">
       <div className="flex gap-3 p-4">
         <Button
           onClick={onFlowAutomation}

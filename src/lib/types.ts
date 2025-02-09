@@ -59,13 +59,25 @@ export type ConnectionProviderProps = {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export type ConnectionTypes = 'Google Drive' | 'Notion' | 'Slack' | 'Discord'
+export type ConnectionTypes =   
+| 'Email'
+| 'Condition'
+| 'AI'
+| 'Slack'
+| 'Google Drive'
+| 'Notion'
+| 'Custom Webhook'
+| 'Google Calendar'
+| 'Trigger'
+| 'Action'
+| 'Wait'
+| 'Discord'
 
 export type Connection = {
   title: ConnectionTypes
   description: string
   image: string
-  connectionKey: keyof ConnectionProviderProps
+  connectionKey: keyof ConnectionProviderProps | string   
   accessTokenKey?: string
   alwaysTrue?: boolean
   slackSpecial?: boolean
@@ -83,6 +95,7 @@ export type EditorCanvasTypes =
   | 'Trigger'
   | 'Action'
   | 'Wait'
+  | 'Discord'
 
 export type EditorCanvasCardType = {
   title: string

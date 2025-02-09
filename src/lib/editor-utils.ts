@@ -13,15 +13,17 @@ import {
 } from '@/app/(main)/(pages)/connections/_actions/slack-connection'
 import { Option } from '@/components/ui/multiple-selector'
 
+// Handles the drag start event for a node in the editor canvas
 export const onDragStart = (
   event: any,
   nodeType: EditorCanvasCardType['type']
 ) => {
-console.log(event);
+  console.log(event);
   event.dataTransfer.setData('application/reactflow', nodeType)
   event.dataTransfer.effectAllowed = 'move'
 }
 
+// Updates the content of the Slack node when the input changes
 export const onSlackContent = (
   nodeConnection: ConnectionProviderProps,
   event: React.ChangeEvent<HTMLInputElement>
@@ -32,6 +34,7 @@ export const onSlackContent = (
   }))
 }
 
+// Updates the content of the Discord node when the input changes
 export const onDiscordContent = (
   nodeConnection: ConnectionProviderProps,
   event: React.ChangeEvent<HTMLInputElement>
@@ -42,20 +45,8 @@ export const onDiscordContent = (
   }))
 }
 
-export const onContentChange = (
-  nodeConnection: ConnectionProviderProps,
-  nodeType: string,
-  event: React.ChangeEvent<HTMLInputElement>
-) => {
-  if (nodeType === 'Slack') {
-    onSlackContent(nodeConnection, event)
-  } else if (nodeType === 'Discord') {
-    onDiscordContent(nodeConnection, event)
-  } else if (nodeType === 'Notion') {
-    onNotionContent(nodeConnection, event)
-  }
-}
 
+// Adds a template to the content of the Slack node
 export const onAddTemplateSlack = (
   nodeConnection: ConnectionProviderProps,
   template: string
@@ -66,6 +57,7 @@ export const onAddTemplateSlack = (
   }))
 }
 
+// Adds a template to the content of the Discord node
 export const onAddTemplateDiscord = (
   nodeConnection: ConnectionProviderProps,
   template: string
@@ -76,6 +68,7 @@ export const onAddTemplateDiscord = (
   }))
 }
 
+// Adds a template to the content of the specified node type (Slack or Discord)
 export const onAddTemplate = (
   nodeConnection: ConnectionProviderProps,
   title: string,
@@ -88,24 +81,32 @@ export const onAddTemplate = (
   }
 }
 
+// Handles the connection logic for different node types (Discord, Notion, Slack)
 export const onConnections = async (
   nodeConnection: ConnectionProviderProps,
   editorState: EditorState,
   googleFile: any
 ) => {
+
+
   if (editorState.editor.selectedNode.data.title == 'Discord') {
-    const connection = await getDiscordConnectionUrl()
+    const connection = await getDiscordConnectionUrl() //checks if there's a row in Discord table with the users id
     if (connection) {
       nodeConnection.setDiscordNode({
         webhookURL: connection.url,
+
         content: '',
         webhookName: connection.name,
         guildName: connection.guildName,
       })
     }
   }
+
+
+
   if (editorState.editor.selectedNode.data.title == 'Notion') {
-    const connection = await getNotionConnection()
+    const connection = await getNotionConnection() //checks if there's a row in Notion table with the users id
+
     if (connection) {
       nodeConnection.setNotionNode({
         accessToken: connection.accessToken,
@@ -126,8 +127,10 @@ export const onConnections = async (
       }
     }
   }
+
+
   if (editorState.editor.selectedNode.data.title == 'Slack') {
-    const connection = await getSlackConnection()
+    const connection = await getSlackConnection() //checks if there's a row in Slack table with the users id
     if (connection) {
       nodeConnection.setSlackNode({
         appId: connection.appId,
@@ -135,6 +138,7 @@ export const onConnections = async (
         authedUserToken: connection.authedUserToken,
         slackAccessToken: connection.slackAccessToken,
         botUserId: connection.botUserId,
+
         teamId: connection.teamId,
         teamName: connection.teamName,
         userId: connection.userId,
@@ -142,8 +146,11 @@ export const onConnections = async (
       })
     }
   }
+
+
 }
 
+// Fetches the list of Slack channels for a bot using the provided token
 export const fetchBotSlackChannels = async (
   token: string,
   setSlackChannels: (slackChannels: Option[]) => void
@@ -151,6 +158,7 @@ export const fetchBotSlackChannels = async (
   await listBotChannels(token)?.then((channels) => setSlackChannels(channels))
 }
 
+// Updates the content of the Notion node when the input changes
 export const onNotionContent = (
   nodeConnection: ConnectionProviderProps,
   event: React.ChangeEvent<HTMLInputElement>
@@ -159,4 +167,23 @@ export const onNotionContent = (
     ...prev,
     content: event.target.value,
   }))
+}
+
+
+
+
+
+// Handles content changes for different node types (Slack, Discord, Notion)
+export const onContentChange = (
+  nodeConnection: ConnectionProviderProps,
+  nodeType: string,
+  event: React.ChangeEvent<HTMLInputElement>
+) => {
+  if (nodeType === 'Slack') {
+    onSlackContent(nodeConnection, event)
+  } else if (nodeType === 'Discord') {
+    onDiscordContent(nodeConnection, event)
+  } else if (nodeType === 'Notion') {
+    onNotionContent(nodeConnection, event)
+  }
 }

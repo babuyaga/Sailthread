@@ -259,7 +259,7 @@ const EditorCanvas = (props: Props) => {
       <ResizableHandle />
       <ResizablePanel
         defaultSize={40}
-        className="relative sm:block max-w-[620px]"
+        className="relative sm:block max-w-[620px] "
       >
         {isWorkFlowLoading ? (
           <div className="absolute flex h-full w-full items-center justify-center">

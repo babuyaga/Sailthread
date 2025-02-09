@@ -9,7 +9,9 @@ const isPublicRoute = createRouteMatcher([
   '/api/clerk-webhook(.*)',
   '/api/drive-activity/notification(.*)',
   '/api/payment/success(.*)',
+  '/api/templates(.*)',
 ]);
+
 
 // Define ignored routes that should bypass authentication
 const ignoredRoutes = createRouteMatcher([

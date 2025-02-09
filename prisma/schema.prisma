@@ -31,6 +31,7 @@ model User {
   Slack                 Slack[]
   connections           Connections[]
   workflows             Workflows[]
+  nodeTemplates         NodeTemplate[]
 }
 
 model LocalGoogleCredential {
@@ -108,22 +109,73 @@ model Workflows {
   nodes             String?
   edges             String?
   name              String
-  discordTemplate   String?
-  notionTemplate    String?
-  slackTemplate     String?
-  slackChannels     String[]
   slackAccessToken  String?
   notionAccessToken String?
-  notionDbId        String?
   flowPath          String?
   cronPath          String?
   publish           Boolean? @default(false)
   description       String
+  User              User     @relation(fields: [userId], references: [clerkId])
+  userId            String
+  nodeTemplates     NodeTemplate[]
+}
+
+
+model NodeTemplate {
+  id                String   @id @default(uuid())
+  nodeId            String   @unique
+  type              String
+  content           String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  slackChannels     String[]
+  notionDbId        String?
   notionTableId     String?
   notionPageId      String?
   notionTableName   String?
   notionPageName    String?
   notionActionType  String?
-  User              User     @relation(fields: [userId], references: [clerkId])
+  accessToken       String?
+  // Relation to Workflows
+  workflow   Workflows @relation(fields: [workflowId], references: [id])
+  workflowId        String
+
+  // Relation to User
+  user       User      @relation(fields: [userId], references: [clerkId])
   userId            String
 }
+
+
+
+
+//npx prisma generate
+//npx prisma db push 
+
+
+//Code below is the original schema. It is kept here for reference. 
+//It is not used in the project. 
+// model Workflows {
+//   id                String   @id @default(uuid())
+//   nodes             String?
+//   edges             String?
+//   name              String
+//   discordTemplate   String? //this is where the template content is stored
+//   notionTemplate    String?//this is where the template content is stored
+//   slackTemplate     String?//this is where the template content is stored
+//   slackChannels     String[]
+//   slackAccessToken  String?
+//   notionAccessToken String?
+//   notionDbId        String?
+//   flowPath          String?
+//   cronPath          String?
+//   publish           Boolean? @default(false)
+//   description       String
+//   notionTableId     String?
+//   notionPageId      String?
+//   notionTableName   String?
+//   notionPageName    String?
+//   notionActionType  String?
+//   User              User     @relation(fields: [userId], references: [clerkId])
+//   userId            String
+//   nodeTemplates     NodeTemplate[]
+// }

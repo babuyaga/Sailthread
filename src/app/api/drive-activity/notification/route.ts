@@ -6,6 +6,8 @@ import axios from 'axios'
 import { headers } from 'next/headers'
 import { NextRequest } from 'next/server'
 
+//This is the route the interacts with external services and actually runs the automation flow. 
+
 export async function POST(req: NextRequest) {
   console.log('🔴 Changed')
   const headersList = await headers()

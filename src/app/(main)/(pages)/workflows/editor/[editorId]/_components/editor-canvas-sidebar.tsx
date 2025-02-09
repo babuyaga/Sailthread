@@ -6,13 +6,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 import React, { useEffect, useState } from 'react'
 import { Separator } from '@/components/ui/separator'
-import { CONNECTIONS, EditorCanvasDefaultCardTypes } from '@/lib/constants'
+import { CONNECTIONSNODE, EditorCanvasDefaultCardTypes } from '@/lib/constants'
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+
 import {
   fetchBotSlackChannels,
   onConnections,
@@ -21,14 +22,14 @@ import {
 import EditorCanvasIconHelper from './editor-canvas-card-icon-helper'
 import {
   Accordion,
-  AccordionContent,
   AccordionItem,
-  AccordionTrigger,
 } from '@/components/ui/accordion'
 import RenderConnectionAccordion from './render-connection-accordion'
-import RenderOutputAccordion from './render-output-accordion'
+
 import { SailthreadStore } from '@/store'
 import { Toaster } from "@/components/ui/sonner"
+import { cn } from '@/lib/utils'
+import SideBarTemplateForm from './sidebar-template-form'
 
 
 type Props = {
@@ -58,7 +59,7 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
 
   useEffect(() => {
     if (state.editor.selectedNode.id) {
-      setActiveTab('settings')
+      setActiveTab('configurations')
     } else {
       setActiveTab('actions')
     }
@@ -70,12 +71,12 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
       <Tabs
         value={activeTab}
         onValueChange={setActiveTab}
-        className="h-screen overflow-scroll pb-24"
+        className="h-screen overflow-scroll pb-24 p-4"
       >
         <Toaster />
         <TabsList className="bg-transparent">
           <TabsTrigger value="actions">Actions</TabsTrigger>
-          <TabsTrigger value="settings">Settings</TabsTrigger>
+          <TabsTrigger value="configurations" className={cn(!state.editor.selectedNode.id && "hidden")}>Configurations</TabsTrigger>
 
         </TabsList>
         <Separator />
@@ -86,7 +87,7 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
        
         <TabsContent  //tab for the cards
           value="actions"
-          className="flex flex-col gap-4 p-4 pb-24"
+          className={cn("flex flex-col gap-4 pb-24", activeTab === 'configurations' && "hidden")}
         >
           {Object.entries(EditorCanvasDefaultCardTypes)
             .filter(
@@ -108,7 +109,7 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
                   <EditorCanvasIconHelper type={cardKey as EditorCanvasTypes} />
                   <CardTitle className="text-md">
                     {cardKey}
-                    <CardDescription>{cardValue.description}</CardDescription>
+                    
                   </CardTitle>
                 </CardHeader>
               </Card>
@@ -119,44 +120,21 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
 
 
         <TabsContent //tab for settings
-          value="settings"
-          className="-mt-6 p-2"
+          value="configurations"
+          className="px-2 gap-2 flex flex-col"
         >
-          <div className="px-2 py-4 text-center text-xl font-bold">
-            {state.editor.selectedNode.data.title}
-          </div>
 
-          <Accordion type="multiple">
-            <AccordionItem
-              value="Options"
-              className="border-y-[1px] px-2"
-            >
-              <AccordionTrigger className="!no-underline">
-                Account
-              </AccordionTrigger>
-              <AccordionContent>
-                {CONNECTIONS.map((connection) => (
+          {CONNECTIONSNODE.map((connection) => (
                   <RenderConnectionAccordion
                     key={connection.title}
                     state={state}
                     connection={connection}
                   />
                 ))}
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem
-              value="Expected Output"
-              className="px-2"
-            >
-              <AccordionTrigger className="!no-underline">
-                Action
-              </AccordionTrigger>
-              <RenderOutputAccordion
-                state={state}
-                nodeConnection={nodeConnection}
-              />
-            </AccordionItem>
-          </Accordion>
+
+
+            <SideBarTemplateForm />
+         
         </TabsContent>
       </Tabs>
     </aside>
