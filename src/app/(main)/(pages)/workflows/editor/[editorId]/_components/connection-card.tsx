@@ -16,7 +16,9 @@ type Props = {
   description: string
   callback?: () => void
   connected: {} & any
+  toConnect: boolean
 }
+
 
 const ConnectionCardFlow = ({
   description,
@@ -24,6 +26,7 @@ const ConnectionCardFlow = ({
   icon,
   title,
   connected,
+  toConnect,
 }: Props) => {
   return (
     <Card className="flex w-full items-center justify-between max-w-[840px]">
@@ -42,10 +45,11 @@ const ConnectionCardFlow = ({
 
         </div>
       </CardHeader>
-      <div className="flex flex-col items-center gap-2 p-4 ">
+      {toConnect ? <div className="flex flex-col items-center gap-2 p-4 ">
         {connected[type] ? (
           <div className="border-bg-primary rounded-lg border-2 px-3 py-2 font-bold dark:text-white">
             Connected
+
           </div>
         ) : (
           <Link
@@ -63,7 +67,7 @@ const ConnectionCardFlow = ({
             Connect
           </Link>
         )}
-      </div>
+      </div>:""}
     </Card>
   )
 }

@@ -123,7 +123,7 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
           value="configurations"
           className="px-2 gap-2 flex flex-col"
         >
-
+<span>
           {CONNECTIONSNODE.map((connection) => (
                   <RenderConnectionAccordion
                     key={connection.title}
@@ -131,7 +131,7 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
                     connection={connection}
                   />
                 ))}
-
+</span>
 
             <SideBarTemplateForm />
          

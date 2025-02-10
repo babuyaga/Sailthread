@@ -2,10 +2,12 @@
 import React from 'react'
 import { AccordionContent } from '@/components/ui/accordion'
 import MultipleSelector from '@/components/ui/multiple-selector'
-import { Connection } from '@/lib/types'
+import { ConnectionNode } from '@/lib/constants'
 import { useNodeConnections } from '@/providers/connections-provider'
 import { EditorState } from '@/providers/editor-provider'
 import { SailthreadStore } from '@/store'
+
+
 import {
   Command,
   CommandEmpty,
@@ -52,9 +54,11 @@ const RenderConnectionAccordion = ({
   connection,
   state,
 }: {
-  connection: Connection
+  connection: ConnectionNode
   state: EditorState
 }) => {
+
+
 
   const {
     title,
@@ -64,6 +68,7 @@ const RenderConnectionAccordion = ({
     accessTokenKey,
     alwaysTrue,
     slackSpecial,
+    toConnect,
   } = connection
 
   const { nodeConnection } = useNodeConnections()
@@ -87,17 +92,18 @@ console.log('This is the connection title', title);
   return (
     <div key={title}>
       {state.editor.selectedNode.data.title === title?(
-        <span>
+        <span >
           <ConnectionCardFlow
             title={title}
             icon={image}
             description={description}
             type={title}
             connected={{ [title]: isConnected }}
+            toConnect={toConnect ?? false}
 
           />
         </span>
-      ):""}
+      ):<div className=""></div>}
 
 
       

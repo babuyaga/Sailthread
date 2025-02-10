@@ -180,23 +180,29 @@ export const CONNECTIONS: Connection[] = [
   },
 ]
 
+export type ConnectionNode = Connection & {
+  toConnect?: boolean | null
+}
 
 
+export const CONNECTIONSNODE: ConnectionNode[] = [
 
-export const CONNECTIONSNODE: Connection[] = [
   {
     title: 'Google Drive',
     description: 'Connect your google drive to listen to folder changes',
     image: '/googleDrive.png',
     connectionKey: 'googleNode',
     alwaysTrue: true,
+    toConnect: true,
   },
   {
     title: 'Discord',
+
     description: 'Connect your discord to send notification and messages',
     image: '/discord.png',
     connectionKey: 'discordNode',
     accessTokenKey: 'webhookURL',
+    toConnect: true,
   },
   {
     title: 'Notion',
@@ -204,6 +210,7 @@ export const CONNECTIONSNODE: Connection[] = [
     image: '/notion.png',
     connectionKey: 'notionNode',
     accessTokenKey: 'accessToken',
+    toConnect: true,
   },
   {
     title: 'Slack',
@@ -213,49 +220,60 @@ export const CONNECTIONSNODE: Connection[] = [
     connectionKey: 'slackNode',
     accessTokenKey: 'slackAccessToken',
     slackSpecial: true,
+    toConnect: true,
   },
+
   {
     title: 'Email',
     description: 'Send an email to a user',
     image: '',
     connectionKey: 'emailNode',
     accessTokenKey: 'emailAccessToken',
+    toConnect: false,
   },
   {
     title: 'AI',
+
     description: 'Use AI to summarize, respond, create and much more.',
     image: '',
     connectionKey: 'aiNode',
+    toConnect: false,
   },
+
   {
     title: 'Condition',
     description: 'Boolean operator that creates different conditions lanes.',
     image: '',
     connectionKey: 'conditionNode',
+    toConnect: false,
   },
   {
     title: 'Wait',
     description: 'Delay the next action step by using the wait timer.',
     image: '',
     connectionKey: 'waitNode',
+    toConnect: false,
   },
   {
     title: 'Trigger',
     description: 'An event that starts the workflow.',
     image: '',
     connectionKey: 'triggerNode',
+    toConnect: false,
   },
   {
     title: 'Action',
     description: 'An event that happens after the workflow begins',
     image: '',
     connectionKey: 'actionNode',
+    toConnect: false,
   },
   {
     title: 'Custom Webhook',
     description: 'Connect any app that has an API key and send data to your applicaiton.',
     image: '',
     connectionKey: 'customWebhookNode',
+    toConnect: false,
 
   },
   {
@@ -263,6 +281,8 @@ export const CONNECTIONSNODE: Connection[] = [
     description: 'Create a calendar invite.',
     image: '',
     connectionKey: 'googleCalendarNode',
+    toConnect: false,
   }
     
+
 ]
